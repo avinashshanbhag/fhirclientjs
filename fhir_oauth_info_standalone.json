@@ -1,0 +1,102 @@
+{
+	"__comment"  : "Contains Client OAuth information for Argonaut Servers",
+	"endpoints": 
+	[
+		{
+			"__comment" : 		"SMART FHIR Server",
+			"fhirURL" : 		"https://fhir-api-dstu2.smarthealthit.org",
+			"client_id": 		"123ebdc1-8eca-4f23-881d-882b8be90207",
+			"client_secret": 	"M1avdTm_S0UbdU99lFvAuaqTlxyPzey08Ox2hvQykFuWQT6_-0-zUqGxEbOyEh6gvOyI96FzbIdnjDpFY64LvQ",
+			"authorize":		"",
+			"token":			"",
+			"launch": 			"",	
+			"scope"	: 			"user/*.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"		
+			
+		},
+		{
+			"__comment" : 		"SITE FHIR Server",
+			"fhirURL" : 		"https://fhirtest.direct.sitenv.org/hapi/fhir",
+			"client_id": 		"7lH6dy8KBs-mhtjx6XO2HhyBh8RYTl",
+			"client_secret": 	"TlVheGtVa1liUGgyQVlUYVdPb2F2ZUV1SmF0YjZGeERiSGRQMHdGTnJBNGNDRUtpQXg=",
+			"authorize":		"",
+			"token":			"",
+			"launch": 			"",	
+			"scope"	: 			"user/*.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"		
+			
+		},
+		{
+			"__comment" : 		"InterSystems FHIR Server",
+			"fhirURL" : 		"https://argonaut.intersystems.com/fhiroauth2",
+			"client_id": 		"FnmelVVcqvo21fYxudU-OiJmbkCzKh06ph8hiuSwB08",
+			"client_secret": 	"VWJHckNijkZGDnb4W9kVyUSyA3Y",
+			"authorize":		"",
+			"token":			"",
+			"launch": 			"",	
+			"scope"	: 			"user/*.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"		
+			
+		},
+		{
+			"__comment" : 		"Relay Health FHIR Server",
+			"fhirURL" : 		"https://api.stage.data.relayhealth.com/rhc/fhirservice",
+			"client_id": 		"7f071245-7743-4839-89aa-2259565a6087",
+			"client_secret": 	"",
+			"authorize":		"https://login.microsoftonline.com/mccadevdpat.onmicrosoft.com/oauth2/authorize",
+			"token":			"https://login.microsoftonline.com/mccadevdpat.onmicrosoft.com/oauth2/token",
+			"launch": 			"",	
+			"scope"	: 			"user/*.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"		
+			
+		},
+		{
+			"__comment" : 		"Allscripts FHIR Server",
+			"fhirURL" : 		"https://cloud.allscriptsunity.com/FHIR",
+			"client_id": 		"7D2B520E-AD0D-4671-B287-662165C386B5",
+			"client_secret": 	"Cc54jYZkn2Ipp760et7t2w==",
+			"authorize":		"https://cloud.allscriptsunity.com/authorization/oauth/authorize",
+			"token":			"https://cloud.allscriptsunity.com/authorization/oauth/token",
+			"launch": 			"",	
+			"scope"	: 			"user/*.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"		
+			
+		},
+		{
+			"__comment" : 		"Mass General FHIR Server",
+			"fhirURL" : 		"http://fhir.i2b2.org/srv-dstu2-0.2/api",
+			"client_id": 		"fcclient1",
+			"client_secret": 	"",
+			"authorize":		"http://fhir.i2b2.org/srv-dstu2-0.2/api/authz/authorize",
+			"token":			"http://fhir.i2b2.org/srv-dstu2-0.2/api/token",
+			"launch": 			"",	
+			"scope"	: 			"user/*.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"		
+			
+			
+		},
+		{
+			"__comment" : 		"Cerner FHIR Server",
+			"fhirURL" :			"https://fhir.sandboxcernerpowerchart.com/may2015/d075cf8b-3261-481d-97e5-ba6c48d3b41f",
+			"client_id": 		"37f84f95-2ca5-44ce-b34a-1fffbca09c6b",
+			"client_secret": 	"",
+			"authorize":		"",
+			"token":			"",
+			"launch"	: 		"4f31fa80-e7aa-4f33-bc97-295cc1044edc",
+			"scope"		: 		"launch user/Patient.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"
+		},
+		{
+			"__comment" : 		"EPIC FHIR Server",
+			"fhirURL" :			"https://open-ic.epic.com/Argonaut/api/FHIR/Argonaut",
+			"client_id": 		"7B3950A01D874E29A4AB2591AEFF418F",
+			"client_secret": 	"argonaut",
+			"authorize":		"",
+			"token":			"",
+			"launch"	: 		"",
+			"scope"		: 		"user/*.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"
+		}
+		
+	] 
+}

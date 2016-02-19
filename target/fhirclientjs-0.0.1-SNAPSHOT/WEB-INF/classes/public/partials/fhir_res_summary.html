@@ -1,0 +1,21 @@
+
+<div class ="row">
+
+    <div class="col-xs-8 col-xs-offset-4 col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+        <!--Body content-->
+        <pre>Input = {{fhirBean }}</pre>
+        <pre>Patient ID = {{result.identifier}}</pre>
+        <pre>Patient Name = {{result.name}}</pre>
+        <pre>Patient Gender: {{result.gender.coding[0]}}</pre>
+        <pre>Text: {{result.text}}</pre>
+        <pre>Here..</pre>
+        <ul class = "result.name">
+            <li ng-repeat="name in result.name">
+                <span>Family: {{name.family[0]}}</span>
+                <span>Given: {{name.given[0]}}</span>
+                <span>Suffix: {{name.suffix[0]}}</span>
+            </li>
+        </ul>
+    </div>
+
+</div>

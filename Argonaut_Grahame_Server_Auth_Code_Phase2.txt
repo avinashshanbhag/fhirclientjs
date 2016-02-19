@@ -1,0 +1,30 @@
+hi Avinash
+
+You have access to the Argonaut test data. You can get the source data from
+http://www.healthintersections.com.au/argonaut/
+
+The zip files have a password of 'argonautRocks'
+
+You have an account on the demonstration server at http://argonaut.healthintersections.com.au
+Username: avinashs
+Password: vlziezmt
+bearer token: 38.78E852A75B76933C51D7F7173E7015839CE70E13464C3F3B2DD8591DF77A75D3
+
+If you would like to test OAuth on my server, I will need to register a client for you. See Argonaut Documentation for how to use the bearer token
+
+Grahame
+
+
+FHIR Base:
+==========
+https://argonaut.healthintersections.com.au/closed/
+
+patient Id: 4705149-patient, 4705152-patient
+
+Curl cmd
+==========
+
+curl -v https://argonaut.healthintersections.com.au/closed/Patient/4705149-patient -H "Authorization: Bearer 38.78E852A75B76933C51D7F7173E7015839CE70E13464C3F3B2DD8591DF77A75D3"
+
+curl -v https://argonaut.healthintersections.com.au/closed/Patient/4705149-patient -H "Authorization: Bearer 38.78E852A75B76933C51D7F7173E7015839CE70E13464C3F3B2DD8591DF77A75D3" -H "Accept: application/json"
+

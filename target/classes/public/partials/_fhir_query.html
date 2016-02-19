@@ -1,0 +1,790 @@
+<!-- Main Title strip -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="all" ng-hide="isEHRLaunch()">FHIR Patient Query Client Tool</a>
+            <a class="navbar-brand" href="details" ng-show="isEHRLaunch()">FHIR Patient Query Client Tool</a>
+
+
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a data-ng-active-tab data-ng-href="all" ng-hide="isEHRLaunch()">All Patients</a></li>
+                <li><a data-ng-active-tab data-ng-href="details">Single Patient</a></li>
+                <li><a data-ng-active-tab data-ng-href="about">About</a></li>
+                <li><a data-ng-active-tab data-ng-href="login" ng-hide="isEHRLaunch()">Login</a></li>
+                <li><a data-ng-active-tab data-ng-href="launch"ng-hide="isEHRLaunch()">Launch</a></li>
+            </ul>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+<!-- Main Form to collect input from user before submitting query to FHIR server -->
+<div class="row">
+
+        <form name= "fhirForm" class="form-horizontal">
+
+            <!-- Get FHIR Server Endpoint -->
+
+            <div class="form-group">
+                <label for="fhirUrl" class="control-label col-sm-2">FHIR Server URL</label>
+                <div class="col-sm-10">
+                    <input type="url" name="fhirUrl" id="fhirUrl" ng-model="fhirBean.url" required class="form-control" ng-disabled="isEHRLaunch()" />
+                </div>
+            </div>
+
+
+            <!-- Check if Secured -->
+
+            <div class="form-group" ng-hide="isEHRLaunch()">
+                <label for="auth" class="control-label col-sm-2">Is Secured</label>
+                <div class="col-sm-5">
+                    <input type="checkbox" name="auth" id="auth" ng-model="fhirBean.auth"
+                           ng-true-value="true" ng-false-value="false">
+                </div>
+            </div>
+
+            <!-- Get FHIR Resource ID -->
+
+            <div class="form-group" ng-hide="isEHRLaunch()">
+                <label for="id" class="control-label col-sm-2">FHIR Resource ID</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="id" id="id" ng-model="fhirBean.id"/>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+
+            <div class = "form-group" ng-hide="isEHRLaunch()">
+                <div class = "col-sm-offset-2 col-sm-10">
+                    <button type="submit" ng-click="query()" class="btn btn-primary">Search</button>
+                    <button type="reset" ng-click="reset()"  class="btn btn-reset">Reset</button>
+                </div>
+            </div>
+
+
+        </form>
+</div>
+
+<!-- Replace this with more html
+<div class="row">
+    <pre>Input = {{fhirBean }}</pre>
+    <pre>Patient ID = {{result.identifier}}</pre>
+    <pre>Patient Name = {{result.name}}</pre>
+    <pre>Patient Gender: {{result.gender.coding[0]}}</pre>
+    <pre>Text: {{result.text}}</pre>
+    <pre>Here..</pre>
+    <ul class = "result.name">
+        <li ng-repeat="name in result.name">
+            <span>Family: {{name.family[0]}}</span>
+            <span>Given: {{name.given[0]}}</span>
+            <span>Suffix: {{name.suffix[0]}}</span>
+        </li>
+    </ul>
+</div>
+
+-->
+
+<!-- Add Tab set -->
+
+<div class="row">
+    <ul class="nav nav-pills">
+        <li ng-class="{ active:isSelected(1) }"><a href ng-click="selectTab(1)">Demographics</a></li>
+        <li ng-class="{ active:isSelected(2) }"><a href ng-click="selectTab(2)">Document Reference</a></li>
+        <li ng-class="{ active:isSelected(3) }"><a href ng-click="selectTab(3)">Medications</a></li>
+        <li ng-class="{ active:isSelected(4) }"><a href ng-click="selectTab(4)">Allergy Details</a></li>
+        <li ng-class="{ active:isSelected(5) }"><a href ng-click="selectTab(5)">Problem Details</a></li>
+        <li ng-class="{ active:isSelected(6) }"><a href ng-click="selectTab(6)">Immunizations</a></li>
+        <li ng-class="{ active:isSelected(7) }"><a href ng-click="selectTab(7)">Miscellaneous</a></li>
+    </ul>
+</div>
+
+
+<!--div class="row">
+    <pre>Tab = {{tab}}</pre>
+</div -->
+
+<div class="panel" ng-show="isSelected(1)">
+
+<!-- Viewing Demographics when no information is present -->
+<div ng-show="isDemographicsEmpty()" class="row panel panel-primary">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Demographics Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Id</th>
+            <th>Address</th>
+            <th>Date of Birth</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td colspan="5" class="text-danger text-center">
+                    No information present
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Viewing Demographic information when present -->
+<div ng-hide="isDemographicsEmpty()" class="row panel panel-primary">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Demographics Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Id</th>
+                <th>Address</th>
+                <th>Date of Birth</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+
+                <td>
+                   {{result.demographics.name}}
+                </td>
+                <td >
+                    {{result.demographics.gender}}
+                </td>
+                <td>
+                    {{result.demographics.id}}
+                </td>
+                <td>
+                    {{result.demographics.address}}
+                </td>
+                <td>
+                    {{result.demographics.dob}}
+                </td>
+             </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+</div>
+
+<div class="panel" ng-show="isSelected(2)">
+
+<!-- Viewing Documentreference when no information is present -->
+<div ng-show="isDocReferenceEmpty()" class="row panel panel-primary">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Document Reference Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Code</th>
+            <th>Title</th>
+            <th>URL</th>
+            <th>Content Type</th>
+            <th>Language</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="9" class="text-danger text-center">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Viewing DocumentReference details tables when information is present -->
+
+<div ng-hide="isDocReferenceEmpty()" class="row panel panel-primary">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Document Reference Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Code</th>
+            <th>Title</th>
+            <th>URL</th>
+            <th>Content Type</th>
+            <th>Language</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="documentReference in result.documentReferences">
+            <td>
+                {{documentReference.author}}
+            </td>
+            <td >
+                {{documentReference.creationDate}}
+            </td>
+            <td>
+                {{documentReference.status}}
+            </td>
+
+            <td>
+                {{documentReference.typeCode}}
+            </td>
+
+            <td>
+                {{documentReference.classCode}}
+            </td>
+
+            <td>
+                {{documentReference.title}}
+            </td>
+            <td>
+                <button type="submit"  ng-show="documentReference.url" ng-disabled="!fhirBean.url" ng-click="getDocument(documentReference.url)" class="btn btn-link">Get Document</button>
+            </td>
+            <td>
+                {{documentReference.contentType}}
+            </td>
+            <td>
+                {{documentReference.language}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Viewing Document when getDocument link is clicked from DocumentReference -->
+
+<div ng-show="result.attachedDocument" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Document Details : {{params.docURL}}</div>
+
+
+    <table class="table table-condensed table-bordered table-striped">
+        <tbody>
+        <tr >
+            <td>
+                <pre>{{result.attachedDocument}}</pre>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+
+<!-- Viewing Medication Order Empty table when no information is present -->
+
+<div class="panel" ng-show="isSelected(3)">
+
+<div ng-show="isMedOrderInfoEmpty()" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Medication Order Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Dosage Instruction</th>
+            <th>Order Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="4" class="text-center text-danger">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+
+<!-- Viewing Medication Order when information is present -->
+
+<div ng-hide="isMedOrderInfoEmpty()" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Medication Order Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Dosage Instruction</th>
+            <th>Order Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="medOrder in result.medOrderDetails">
+            <td>
+                {{medOrder.displayName}}
+            </td>
+            <td>
+                {{medOrder.code}}
+            </td>
+            <td >
+                {{medOrder.dosageInstruction}}
+            </td>
+            <td>
+                {{medOrder.status}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Viewing Medication Dispense Empty table when no information is present -->
+
+<div ng-show="isMedDispenseInfoEmpty()" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Medication Dispense Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>When Handed</th>
+            <th>Dispense Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="4" class="text-center text-danger">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<!-- Viewing Medication Dispense when information is present -->
+
+<div ng-hide="isMedDispenseInfoEmpty()" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Medication Dispense Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>When Handed</th>
+            <th>Dispense Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="medDispense in result.medDispenseDetails">
+            <td>
+                {{medDispense.displayName}}
+            </td>
+            <td>
+                {{medDispense.code}}
+            </td>
+            <td >
+                {{medDispense.whenHandedOver}}
+            </td>
+            <td>
+                {{medDispense.status}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Viewing Medication Statement Empty table when no information is present -->
+
+<div ng-show="isMedStatementInfoEmpty()" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Medication Statement Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>status</th>
+            <th>Not Taken</th>
+            <th>When Given</th>
+            <th>Route</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="6" class="text-center text-danger">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<!-- Viewing Medication Statement when information is present -->
+
+<div ng-hide="isMedStatementInfoEmpty()" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Medication Statement Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>status</th>
+            <th>Not Taken</th>
+            <th>When Given</th>
+            <th>Route</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="medStatement in result.medStatementDetails">
+            <td>
+                {{medStatement.name}}
+            </td>
+            <td>
+                {{medStatement.code}}
+            </td>
+            <td >
+                {{medStatement.status}}
+            </td>
+            <td>
+                {{medStatement.wasNotTaken}}
+            </td>
+            <td>
+                {{medStatement.when}}
+            </td>
+            <td>
+                {{medStatement.route}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Viewing Medicine details Empty table when no information is present -->
+
+<div ng-show="isMedicineInfoEmpty()" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Medication Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Dosage</th>
+            <th>Medication Status</th>
+            <th>Order Status</th>
+            <th>Dispense Status</th>
+            <th>When Handed</th>
+            <th>Route</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td colspan="8" class="text-center text-danger">
+                    No information present
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<!-- Viewing Medicine details tables when information is present -->
+
+<div ng-hide="isMedicineInfoEmpty()" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Medication Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Dosage</th>
+            <th>Medication Status</th>
+            <th>Order Status</th>
+            <th>Dispense Status</th>
+            <th>When Handed</th>
+            <th>Route</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="medication in result.medicines">
+                <td>
+                    {{medication.name}}
+                </td>
+                <td>
+                    {{medication.code}}
+                </td>
+                <td >
+                    {{medication.dosage}}
+                </td>
+                <td>
+                    {{medication.medicationStatus}}
+                </td>
+                <td>
+                    {{medication.orderStatus}}
+                </td>
+                <td>
+                    {{medication.dispenseStatus}}
+                </td>
+                <td>
+                    {{medication.whenHandedOver}}
+                </td>
+                <td>
+                    {{medication.route}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+<!-- Viewing Allergy Details table when no information is available -->
+<div class="panel" ng-show="isSelected(4)">
+
+<div ng-show="isAllergyInfoEmpty()" class="row panel panel-info">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Allergy Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Substance</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Reaction</th>
+            <th>Severity</th>
+            <th>Duration</th>
+            <th>When</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="7" class="text-center text-danger">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Viewing Allergy details when information is available -->
+
+<div ng-hide="isAllergyInfoEmpty()" class="row panel panel-info">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Allergy Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Substance</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Reaction</th>
+            <th>Severity</th>
+            <th>Duration</th>
+            <th>When</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="allergy in result.allergies">
+            <td>
+                {{allergy.substance}}
+            </td>
+
+            <td>
+                {{allergy.category}}
+            </td>
+
+            <td>
+                {{allergy.status}}
+            </td>
+
+            <td>
+                {{allergy.reaction}}
+            </td>
+
+            <td>
+                {{allergy.severity}}
+            </td>
+            <td>
+                {{allergy.duration}}
+            </td>
+            <td>
+                {{allergy.when}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+<!-- Viewing Problem Details table when no information is available -->
+<div class="panel" ng-show="isSelected(5)">
+
+<div ng-show="isProblemInfoEmpty()" class="row panel panel-warning">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Problem Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Date Recorded</th>
+            <th>Age at Onset</th>
+            <th>Severity</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="7" class="text-center text-danger">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Viewing Problem details when information is available -->
+
+<div ng-hide="isProblemInfoEmpty()" class="row panel panel-warning">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Problem Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Date Recorded</th>
+            <th>Age at Onset</th>
+            <th>Severity</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="problem in result.problems">
+            <td>
+                {{problem.type}}
+            </td>
+
+            <td>
+                {{problem.code}}
+            </td>
+
+            <td>
+                {{problem.description}}
+            </td>
+
+            <td>
+                {{problem.dateRecorded}}
+            </td>
+
+            <td>
+                {{problem.ageAtOnset}}
+            </td>
+            <td>
+                {{problem.severity}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+<!-- Immunization Details --->
+
+<div class="panel" ng-show="isSelected(6)">
+
+<div class="row panel panel-warning">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Immunization Details</div>
+</div>
+
+</div>
+
+<div class="panel" ng-show="isSelected(7)">
+
+<div class="row panel panel-danger">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Miscellaneous</div>
+
+</div>
+</div>

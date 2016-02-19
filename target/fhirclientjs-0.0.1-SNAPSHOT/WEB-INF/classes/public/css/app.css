@@ -1,0 +1,57 @@
+/* app css stylesheet */
+
+body {
+  padding-top: 60px;
+}
+
+.sidebar {
+	position: fixed;
+	top: 51px;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+	display: block;
+	padding: 5px 0 0 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: #f2f5f9;
+	border-right: 1 px solid #eee;
+}
+
+.tab-content {
+	padding: 10px;
+	border: 1 px solid #ddd;
+	border-top: 0px solid transparent;
+	
+}
+
+ul.specs {
+  clear: both;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.specs > li{
+  display: inline-block;
+  width: 200px;
+  vertical-align: top;
+}
+
+ul.specs > li > span{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+ul.specs dt {
+  font-weight: bold;
+}
+
+h1 {
+  border-bottom: 1px solid gray;
+}
+
+.myGrid {
+  width: 500px;
+  height: 250px;
+}

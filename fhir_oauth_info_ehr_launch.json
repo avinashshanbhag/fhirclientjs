@@ -1,0 +1,17 @@
+{
+	"__comment"  : "Contains Client OAuth information for Argonaut Servers tested for EHR launch only",
+	"endpoints": 
+	[
+		{
+			"__comment" : 		"SMART FHIR Server",
+			"fhirURL" : 		"https://fhir-api-dstu2.smarthealthit.org",
+			"client_id": 		"my_web_app",
+			"client_secret": 	"",
+			"authorize":		"",
+			"token":			"",
+			"launch": 			"",	
+			"scope"	: 			"patient/*.read",
+			"redirect_url":		"http://localhost:8000/fhir-app/avifhirclient/oauth"		
+		}
+	] 
+}

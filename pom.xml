@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.avinash</groupId>
+  <artifactId>fhirclientjs</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+   
+   
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <warSourceDirectory>WebContent</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+<!--  Adding Snapshot repository for HAPI - Commmented as of Sept 23, 2015
+ 
+  	<repositories>
+		<repository>
+			<id>oss-snapshots</id>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+	
+-->
+  
+  <!--  Inherit defaults from Spring Boot -->
+  <parent>
+  	<groupId>org.springframework.boot</groupId>
+  	<artifactId>spring-boot-starter-parent</artifactId>
+  	<version>1.1.8.RELEASE</version>
+  </parent>
+  
+  
+   
+  <!--  Add dependency for web application -->
+  <dependencies>
+  	<dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-starter-web</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-starter-tomcat</artifactId>
+  	</dependency>
+  	
+  	<!-- 
+  	<dependency>
+  		<groupId>ca.uhn.hapi.fhir</groupId>
+  		<artifactId>hapi-fhir-base</artifactId>
+  		<version>0.7</version>
+  	</dependency>
+  	-->
+  	
+  	<!--  Adding HAPI Dependencies -->
+
+		<dependency>
+		   <groupId>ca.uhn.hapi.fhir</groupId>
+		   <artifactId>hapi-fhir-base</artifactId>
+		   <!-- 
+		   <version>1.2-SNAPSHOT</version>
+		   -->
+		   <version>1.2</version>
+		</dependency>
+
+		<dependency>
+		   <groupId>ca.uhn.hapi.fhir</groupId>
+		   <artifactId>hapi-fhir-structures-dstu</artifactId>
+		   <!-- 
+		   <version>1.2-SNAPSHOT</version>
+		   -->
+		   <version>1.2</version>
+		</dependency>
+
+		<dependency>
+		   <groupId>ca.uhn.hapi.fhir</groupId>
+		   <artifactId>hapi-fhir-structures-dstu2</artifactId>
+		   <!-- 
+		   <version>1.2-SNAPSHOT</version>
+		   -->
+		   <version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+  </dependencies>
+  
+  <!--  Add build properties -->
+  <properties>
+  	<java.version>1.7</java.version>
+  </properties>
+  <name>fhirclientjs</name>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>commons-codec</groupId>
+  			<artifactId>commons-codec</artifactId>
+  			<version>1.10</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
+</project>
