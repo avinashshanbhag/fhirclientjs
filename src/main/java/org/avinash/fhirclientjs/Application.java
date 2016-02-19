@@ -43,7 +43,7 @@ public class Application {
         
         // setting context to ApplicationContextUtils so that the context can 
         // be accessed in the application.
-        System.out.println("Setting ctx to ApplicationContextUtils");
+        //System.out.println("Setting ctx to ApplicationContextUtils");
         ApplicationContextUtils appCtxUtils = new ApplicationContextUtils();
         appCtxUtils.setApplicationContext(ctx);
 		

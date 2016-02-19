@@ -17,7 +17,7 @@ public class ApplicationContextUtils implements ApplicationContextAware
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException 
 	{
-		System.out.println("Inside ApplicationContext. Seting context : " + applicationContext );
+		//System.out.println("Inside ApplicationContext. Seting context : " + applicationContext );
 		ctx = applicationContext;
 	}
 	
