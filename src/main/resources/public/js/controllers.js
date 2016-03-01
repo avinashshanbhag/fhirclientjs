@@ -291,6 +291,16 @@ fhirControllers.controller('FhirDetailsCtrl', ['$scope','$location', '$window','
 				return false;
 		};
 
+		// Used to control display of diagnostic report information on the details page
+		$scope.isDiagnosticReportInfoEmpty = function()
+		{
+			if ($scope.result.diagnosticReports == null || $scope.result.diagnosticReports.length == 0)
+				return true;
+			else
+				return false;
+		};
+
+
 		// Used to check if the page is from EHR Launch. If Fhirbeah.Launch has valid value, then,
 		// its launched from EHR; otherwise it is a standalone launch;
 		$scope.isEHRLaunch = function()
@@ -303,7 +313,34 @@ fhirControllers.controller('FhirDetailsCtrl', ['$scope','$location', '$window','
 		};
 
 
+		// Checks if the observation is a Codeable Concept
+		$scope.isTypeConceptCode = function(dr)
+		{
+			if (dr.observation != null && dr.observation.type != null)
+			{
+				if (dr.observation.type == "CODEABLECONCEPT")
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
+		};
 
+		// Checks if the observation is quantity & units
+
+		$scope.isTypeQuantity = function(dr)
+		{
+			if (dr.observation != null && dr.observation.type != null)
+			{
+				if (dr.observation.type == "QUANTITY")
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
+		};
 
 
 

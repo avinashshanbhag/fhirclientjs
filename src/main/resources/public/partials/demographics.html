@@ -1,0 +1,70 @@
+<!-- Viewing Demographics Info  -->
+<div ng-show="isDemographicsEmpty()" class="row panel panel-primary">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Demographics Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Id</th>
+            <th>Address</th>
+            <th>Date of Birth</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="5" class="text-danger text-center">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Viewing Demographic information when present -->
+<div ng-hide="isDemographicsEmpty()" class="row panel panel-primary">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Demographics Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Id</th>
+            <th>Address</th>
+            <th>Date of Birth</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+
+            <td>
+                {{result.demographics.name}}
+            </td>
+            <td >
+                {{result.demographics.gender}}
+            </td>
+            <td>
+                {{result.demographics.id}}
+            </td>
+            <td>
+                {{result.demographics.address}}
+            </td>
+            <td>
+                {{result.demographics.dob}}
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>

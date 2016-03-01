@@ -27,6 +27,8 @@ public class PatientDetails implements Serializable {
 	
 	private List<ProblemInfo> problems;
 	
+	private List<DiagnosticReportInfo> diagnosticReports;
+	
 	private List<DocumentReferenceInfo> documentReferences;
 	
 	private List<MedicationOrderDetails> medOrderDetails;
@@ -46,6 +48,8 @@ public class PatientDetails implements Serializable {
 		this.problems  = new ArrayList<ProblemInfo>();
 		this.documentReferences = new ArrayList<DocumentReferenceInfo>();
 		
+		this.diagnosticReports = new ArrayList<DiagnosticReportInfo>();
+		
 		this.medOrderDetails = new ArrayList<MedicationOrderDetails>();
 		this.medDispenseDetails = new ArrayList<MedicationDispenseDetails>();
 		this.medStatementDetails = new ArrayList<MedicationStatementDetails>();
@@ -54,6 +58,27 @@ public class PatientDetails implements Serializable {
 	}
 
 	
+	/**
+	 * @return the diagnosticReports
+	 */
+	public List<DiagnosticReportInfo> getDiagnosticReports() {
+		return diagnosticReports;
+	}
+
+
+	/**
+	 * @param diagnosticReports the diagnosticReports to set
+	 */
+	public void setDiagnosticReports(List<DiagnosticReportInfo> diagnosticReports) {
+		this.diagnosticReports = diagnosticReports;
+	}
+
+	public void addDiagnosticReport(DiagnosticReportInfo singleDiagnosticReportInfo)
+	{
+		this.diagnosticReports.add(singleDiagnosticReportInfo);
+	}
+
+
 	/**
 	 * @return the demographics
 	 */
@@ -267,6 +292,13 @@ public class PatientDetails implements Serializable {
 			buf.append("\n");
 		}		
 
+		for (DiagnosticReportInfo diagReportInfo : this.diagnosticReports) 
+		{
+			buf.append(diagReportInfo.toString());
+			buf.append("\n");
+		}		
+		
+		
 		return (buf.toString());
 	}
 

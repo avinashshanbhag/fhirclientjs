@@ -1,0 +1,110 @@
+<!-- Documentreference tab details -->
+
+
+<div ng-show="isDocReferenceEmpty()" class="row panel panel-primary">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Document Reference Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Code</th>
+            <th>Title</th>
+            <th>URL</th>
+            <th>Content Type</th>
+            <th>Language</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="9" class="text-danger text-center">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Viewing DocumentReference details tables when information is present -->
+
+<div ng-hide="isDocReferenceEmpty()" class="row panel panel-primary">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Document Reference Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Code</th>
+            <th>Title</th>
+            <th>URL</th>
+            <th>Content Type</th>
+            <th>Language</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="documentReference in result.documentReferences">
+            <td>
+                {{documentReference.author}}
+            </td>
+            <td >
+                {{documentReference.creationDate}}
+            </td>
+            <td>
+                {{documentReference.status}}
+            </td>
+
+            <td>
+                {{documentReference.typeCode}}
+            </td>
+
+            <td>
+                {{documentReference.classCode}}
+            </td>
+
+            <td>
+                {{documentReference.title}}
+            </td>
+            <td>
+                <button type="submit"  ng-show="documentReference.url" ng-disabled="!fhirBean.url" ng-click="getDocument(documentReference.url)" class="btn btn-link">Get Document</button>
+            </td>
+            <td>
+                {{documentReference.contentType}}
+            </td>
+            <td>
+                {{documentReference.language}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Viewing Document when getDocument link is clicked from DocumentReference -->
+
+<div ng-show="result.attachedDocument" class="row panel panel-success">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Document Details : {{params.docURL}}</div>
+
+
+    <table class="table table-condensed table-bordered table-striped">
+        <tbody>
+        <tr >
+            <td>
+                <pre>{{result.attachedDocument}}</pre>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.Validate;
 import org.avinash.fhirclientjs.client.HeaderInterceptor;
 import org.avinash.fhirclientjs.domain.AllergyInfo;
+import org.avinash.fhirclientjs.domain.DiagnosticReportInfo;
 import org.avinash.fhirclientjs.domain.DocumentReferenceInfo;
 import org.avinash.fhirclientjs.domain.FhirQueryBean;
 import org.avinash.fhirclientjs.domain.MedicationDispenseDetails;
@@ -112,12 +113,6 @@ public class FhirDAO {
 		if (medInfoPr != null)
 		{
 
-			/*
-			List<MedicineInfo> medInfoLs = medInfoPr.buildMedicineInfo();
-			
-			if (medInfoLs != null)
-				patDetails.setMedicines(medInfoLs); */
-			
 			// Add separately - MedicationStatement
 			List <MedicationStatementDetails> medStatements = medInfoPr.buildMedicationStatementDetails();
 
@@ -178,9 +173,22 @@ public class FhirDAO {
 				patDetails.setAllergies(allergyInfoLs);
 		}
 		
+		DiagnosticReportProvider diagReportPr = new DiagnosticReportProvider(ctx, fhirBean.getUrl(),
+				token, fhirBean.getId());
+		
+		if (diagReportPr != null)
+		{
+			List <DiagnosticReportInfo> diagReportLs = diagReportPr.buildDiagnosticReportInfo();
+			
+			if (diagReportLs != null)
+				patDetails.setDiagnosticReports(diagReportLs);
+			
+		}
+		
+		
 		// Convert to JSON String
 		retString = TextUtils.convertObjectToJSON(patDetails);
-		System.out.println("Demographics, DocReference, Meds, Allergies and Problems: " + retString);
+		System.out.println("Demographics, DocReference, Meds, Allergies, Problems and DiagnosticReports: " + retString);
 		
 		return (retString);
 		

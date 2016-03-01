@@ -212,7 +212,7 @@ public abstract class BaseProvider
 					.encodedJson()
 					.execute();
 			
-			System.out.println("Obtained bundle: " + bundle);
+//			System.out.println("Obtained bundle: " + bundle);
 	
 			if (bundle != null)
 			{

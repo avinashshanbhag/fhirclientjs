@@ -1,0 +1,77 @@
+<!-- Problem tab -->
+
+<div ng-show="isProblemInfoEmpty()" class="row panel panel-warning">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Problem Details</div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Date Recorded</th>
+            <th>Age at Onset</th>
+            <th>Severity</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td colspan="7" class="text-center text-danger">
+                No information present
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Viewing Problem details when information is available -->
+
+<div ng-hide="isProblemInfoEmpty()" class="row panel panel-warning">
+
+    <!-- Default panel contents -->
+    <div class="panel-heading">Problem Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Date Recorded</th>
+            <th>Age at Onset</th>
+            <th>Severity</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="problem in result.problems">
+            <td>
+                {{problem.type}}
+            </td>
+
+            <td>
+                {{problem.code}}
+            </td>
+
+            <td>
+                {{problem.description}}
+            </td>
+
+            <td>
+                {{problem.dateRecorded}}
+            </td>
+
+            <td>
+                {{problem.ageAtOnset}}
+            </td>
+            <td>
+                {{problem.severity}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
