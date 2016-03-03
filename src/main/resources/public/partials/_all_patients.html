@@ -34,13 +34,22 @@
 
         <form name= "fhirForm" class="form-horizontal">
 
-            <!-- Get FHIR Server Endpoint -->
+            <!-- Get FHIR Server Endpoint
 
-            <div class="form-group">
+            <!-- Pick from list -->
+            <div clasa="form-group">
                 <label for="fhirUrl" class="control-label col-sm-2">FHIR Server URL</label>
                 <div class="col-sm-10">
-                    <input type="url" name="fhirUrl" id="fhirUrl" ng-model="fhirBean.url" required class="form-control" />
-
+                    <select class="form-control" name="fhirUrl" id="fhirUrl" ng-model="fhirBean.url">
+                        <option value="https://fhir-api-dstu2.smarthealthit.org" selected="selected">SMART</option>
+                        <option value="https://fhirtest.direct.sitenv.org/hapi/fhir">SITE</option>
+                        <option value="https://open-ic.epic.com/Argonaut/api/FHIR/Argonaut">Epic</option>
+                        <option value="https://argonaut.intersystems.com/fhiroauth2">Intersystems</option>
+                        <option value="https://api.stage.data.relayhealth.com/rhc/fhirservice">Relay Health</option>
+                        <option value="https://cloud.allscriptsunity.com/FHIR">AllScripts</option>
+                        <option value="http://fhir.i2b2.org/srv-dstu2-0.2/api">Massachusetts General Hospital</option>
+                        <option value="https://fhir.sandboxcernerpowerchart.com/may2015/d075cf8b-3261-481d-97e5-ba6c48d3b41f">Cerner</option>
+                    </select>
                 </div>
             </div>
 
