@@ -31,13 +31,10 @@
 <br/>
 
 <div class="row">
-
-        <form name= "fhirForm" class="form-horizontal">
-
+        <form name= "fhirForm" role="form" class="form-horizontal">
             <!-- Get FHIR Server Endpoint
-
             <!-- Pick from list -->
-            <div clasa="form-group">
+            <div class="form-group">
                 <label for="fhirUrl" class="control-label col-sm-2">FHIR Server URL</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="fhirUrl" id="fhirUrl" ng-model="fhirBean.url">
@@ -52,47 +49,14 @@
                     </select>
                 </div>
             </div>
-
-
-            <div class="form-group">
-                <label for="auth" class="control-label col-sm-2">Is Secured</label>
-                <div class="col-sm-10">
-                    <input type="checkbox" name="auth" id="auth" ng-model="fhirBean.auth"
-                           ng-true-value="true" ng-false-value="false">
-                </div>
-            </div>
-
-
-            <!-- Get FHIR Resource Type -->
-            <!--
-
-            <div class="form-group">
-                <label for="resType" class="control-label col-sm-2">FHIR Resource Type</label>
-                <div class="col-sm-10">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-fire"></span>
-                        </div>
-                        <input type="text" class="form-control" name="resType" id="resType" ng-model="fhirBean.resource" required/>
-                    </div>
-                </div>
-            </div>
-            -->
-
-            <!-- Submit Button -->
-
             <div class = "form-group">
                 <div class = "col-sm-offset-2 col-sm-10">
                     <button type="submit" ng-click="query()" class="btn btn-primary">Search</button>
                     <button type="reset" ng-click="reset()"  class="btn btn-reset">Reset</button>
                 </div>
             </div>
-
         </form>
 </div>
-
-
-
 <div class = "row col-lg-offset-1" >
 
     <button type="submit" ng-disabled="!fhirBean.id" ng-click="forwardToDetails()" class="btn btn-link">Get Details</button>

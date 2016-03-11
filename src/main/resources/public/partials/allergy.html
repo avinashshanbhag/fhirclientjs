@@ -1,82 +1,86 @@
 <!-- Allergy tab Info -->
-
-<div ng-show="isAllergyInfoEmpty()" class="row panel panel-info">
-
-    <!-- Default panel contents -->
-    <div class="panel-heading">Allergy Details</div>
-
-    <table class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Substance</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Reaction</th>
-            <th>Severity</th>
-            <th>Duration</th>
-            <th>When</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr>
-            <td colspan="7" class="text-center text-danger">
-                No information present
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<div class="row panel panel-primary">
+    <div class="panel-heading">Allergy Information for <span class="strong"><mark>{{result.demographics.name}}</mark></span></div>
 
 
-<!-- Viewing Allergy details when information is available -->
+    <div ng-show="isAllergyInfoEmpty()" class="panel panel-success">
 
-<div ng-hide="isAllergyInfoEmpty()" class="row panel panel-info">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Allergy Details</div>
 
-    <!-- Default panel contents -->
-    <div class="panel-heading">Allergy Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+        <table class="table table-condensed table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Substance</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Reaction</th>
+                <th>Severity</th>
+                <th>Duration</th>
+                <th>When</th>
+            </tr>
+            </thead>
 
-    <table class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Substance</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Reaction</th>
-            <th>Severity</th>
-            <th>Duration</th>
-            <th>When</th>
-        </tr>
-        </thead>
+            <tbody>
+            <tr>
+                <td colspan="7" class="text-center text-danger">
+                    No information present
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <tbody>
-        <tr ng-repeat="allergy in result.allergies">
-            <td>
-                {{allergy.substance}}
-            </td>
 
-            <td>
-                {{allergy.category}}
-            </td>
+    <!-- Viewing Allergy details when information is available -->
 
-            <td>
-                {{allergy.status}}
-            </td>
+    <div ng-hide="isAllergyInfoEmpty()" class="panel panel-success">
 
-            <td>
-                {{allergy.reaction}}
-            </td>
+        <!-- Default panel contents -->
+        <div class="panel-heading">Allergy Details</div>
 
-            <td>
-                {{allergy.severity}}
-            </td>
-            <td>
-                {{allergy.duration}}
-            </td>
-            <td>
-                {{allergy.when}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <table class="table table-condensed table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Substance</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Reaction</th>
+                <th>Severity</th>
+                <th>Duration</th>
+                <th>When</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="allergy in result.allergies">
+                <td>
+                    {{allergy.substance}}
+                </td>
+
+                <td>
+                    {{allergy.category}}
+                </td>
+
+                <td>
+                    {{allergy.status}}
+                </td>
+
+                <td>
+                    {{allergy.reaction}}
+                </td>
+
+                <td>
+                    {{allergy.severity}}
+                </td>
+                <td>
+                    {{allergy.duration}}
+                </td>
+                <td>
+                    {{allergy.when}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

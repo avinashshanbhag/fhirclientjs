@@ -1,91 +1,78 @@
 <!-- Diagnostic Report tab view -->
-<div ng-show="isDiagnosticReportInfoEmpty()" class="row panel panel-warning">
+<div ng-show="isDiagnosticReportInfoEmpty()" class="row panel panel-primary">
 
     <!-- Default panel contents -->
     <div class="panel-heading">Diagnostic Reports Details</div>
 
-    <table class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Report Name</th>
-            <th>Report Status</th>
-            <th>Report Issue Date</th>
-            <th>Observation Category</th>
-            <th>Observation</th>
-            <th>Value</th>
-            <th>Units</th>
-        </tr>
-        </thead>
+        <table class="table table-condensed table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Report Name</th>
+                <th>Report Issue Date</th>
+                <th>Report Status</th>
+                <th>Observation Category</th>
+                <th>Observation</th>
+                <th>Value</th>
+                <th>Units</th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr>
-            <td colspan="7" class="text-center text-danger">
-                No information present
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr>
+                <td colspan="7" class="text-center text-danger">
+                    No information present
+                </td>
+            </tr>
+            </tbody>
+        </table>
 </div>
 
 <!-- Viewing Diagnostic Report details when information is available -->
+<div ng-hide="isDiagnosticReportInfoEmpty()" class="row panel panel-primary">
 
-<div ng-hide="isDiagnosticReportInfoEmpty()" class="row panel panel-warning">
-
+    <div class="panel-heading">Diagnostic Report Details for <span class="strong"><mark>{{result.demographics.name}}</mark></span></div>
 
     <!-- Default panel contents -->
-    <div class="panel-heading">Diagnostic Report Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+        <div ng-repeat="dr in result.diagnosticReports">
 
-    <table class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Report Name</th>
-            <th>Report Status</th>
-            <th>Report Issue Date</th>
-            <th>Observation Category</th>
-            <th>Observation</th>
-            <th>Value</th>
-            <th>Units</th>
-        </tr>
-        </thead>
+                <div class="panel-success">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Report Name: <strong>{{dr.display || "Undefined"}}</strong>
+                        Issued on <strong>{{dr.issued || ""}}</strong>
+                        with status: <strong>{{dr.status || ""}}</strong></div>
+                </div>
 
-        <tbody>
-        <tr ng-repeat="dr in result.diagnosticReports">
-            <td>
-                {{dr.display}}
-            </td>
+                <table class="table table-condensed table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Observation Category</th>
+                            <th>Observation</th>
+                            <th>Value</th>
+                            <th>Units</th>
+                        </tr>
+                    </thead>
 
-            <td>
-                {{dr.status}}
-            </td>
-
-            <td>
-                {{dr.issued}}
-            </td>
-
-            <td>
-                {{dr.observation.categoryCodeValue}}
-            </td>
-
-            <td>
-                {{dr.observation.obsCodeDisplayValue}}
-            </td>
-
-            <td ng-show="isTypeConceptCode(dr)">
-                {{dr.observation.valCodeDisplayValue}}
-            </td>
-
-            <td ng-show="isTypeQuantity(dr)">
-                {{dr.observation.value}}
-            </td>
-
-            <td ng-show="isTypeConceptCode(dr)">
-            </td>
-
-            <td ng-show="isTypeQuantity(dr)">
-                {{dr.observation.unit}}
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
+                    <tbody>
+                        <tr ng-repeat="ob in dr.observationlist">
+                            <td>
+                                {{ob.categoryCodeValue}}
+                            </td>
+                            <td>
+                                {{ob.obsCodeDisplayValue}}
+                            </td>
+                            <td ng-show="isTypeConceptCode(ob)">
+                                {{ob.valCodeDisplayValue}}
+                            </td>
+                            <td ng-show="isTypeQuantity(ob)">
+                                {{ob.value}}
+                            </td>
+                            <td ng-show="isTypeConceptCode(ob)">
+                            </td>
+                            <td ng-show="isTypeQuantity(ob)">
+                                {{ob.unit}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
 </div>

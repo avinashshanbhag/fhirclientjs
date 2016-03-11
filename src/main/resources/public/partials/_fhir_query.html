@@ -39,12 +39,9 @@
 <div class="row">
 
         <form name= "fhirForm" class="form-horizontal">
-
             <!-- Get FHIR Server Endpoint
-
-
             <!-- Pick from list -->
-            <div clasa="form-group">
+            <div class="form-group">
                 <label for="fhirUrl" class="control-label col-sm-2">FHIR Server URL</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="fhirUrl" id="fhirUrl" ng-model="fhirBean.url">
@@ -59,36 +56,31 @@
                     </select>
                 </div>
             </div>
-
             <!-- Check if Secured -->
-
+            <!-- Make it default - Secured
             <div class="form-group" ng-hide="isEHRLaunch()">
                 <label for="auth" class="control-label col-sm-2">Is Secured</label>
                 <div class="col-sm-5">
                     <input type="checkbox" name="auth" id="auth" ng-model="fhirBean.auth"
+                           ng-checked="fhirBean.auth"
                            ng-true-value="true" ng-false-value="false">
                 </div>
             </div>
-
+            -->
             <!-- Get FHIR Resource ID -->
-
             <div class="form-group" ng-hide="isEHRLaunch()">
                 <label for="id" class="control-label col-sm-2">FHIR Resource ID</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="id" id="id" ng-model="fhirBean.id"/>
                 </div>
             </div>
-
             <!-- Submit Button -->
-
             <div class = "form-group" ng-hide="isEHRLaunch()">
                 <div class = "col-sm-offset-2 col-sm-10">
                     <button type="submit" ng-click="query()" class="btn btn-primary">Search</button>
                     <button type="reset" ng-click="reset()"  class="btn btn-reset">Reset</button>
                 </div>
             </div>
-
-
         </form>
 </div>
 

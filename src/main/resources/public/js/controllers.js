@@ -23,6 +23,12 @@ fhirControllers.controller('fhirAllPatientsCtrl', ['$scope','$location', '$windo
 		// Make sure that the Patient ID is removed from the bean, even if it was present before
 		$scope.fhirBean.id = "";
 
+		// By default, the app only works with Oauth2
+		$scope.fhirBean.auth = "true";
+
+		if ($scope.fhirBean.url == null || $scope.fhirBean.url.length == 0)
+			$scope.fhirBean.url = "";
+
 
 		// Get all data only if authorized or unsecured
 		$scope.myData = AllPatientsService.getAllPatientInfo($scope.fhirBean);
@@ -125,6 +131,9 @@ fhirControllers.controller('FhirDetailsCtrl', ['$scope','$location', '$window','
 		$scope.result = {};
 		$scope.fhirBean = FhirBeanService.get();
 
+		// By default, App works with OAuth
+		$scope.fhirBean.auth = "true";
+
 		console.log("Calling Controller for single Patient FhirBean is: %s", JSON.stringify($scope.fhirBean));
 
 
@@ -213,7 +222,7 @@ fhirControllers.controller('FhirDetailsCtrl', ['$scope','$location', '$window','
 			$scope.fhirBean = { "url": "",
 				"resource": "",
 				"id": "",
-				"auth": "false"
+				"auth": "true"
 			};
 		};
 
@@ -314,11 +323,11 @@ fhirControllers.controller('FhirDetailsCtrl', ['$scope','$location', '$window','
 
 
 		// Checks if the observation is a Codeable Concept
-		$scope.isTypeConceptCode = function(dr)
+		$scope.isTypeConceptCode = function(ob)
 		{
-			if (dr.observation != null && dr.observation.type != null)
+			if (ob != null && ob.type != null)
 			{
-				if (dr.observation.type == "CODEABLECONCEPT")
+				if (ob.type == "CODEABLECONCEPT")
 					return true;
 				else
 					return false;
@@ -329,11 +338,11 @@ fhirControllers.controller('FhirDetailsCtrl', ['$scope','$location', '$window','
 
 		// Checks if the observation is quantity & units
 
-		$scope.isTypeQuantity = function(dr)
+		$scope.isTypeQuantity = function(ob)
 		{
-			if (dr.observation != null && dr.observation.type != null)
+			if (ob != null && ob.type != null)
 			{
-				if (dr.observation.type == "QUANTITY")
+				if (ob.type == "QUANTITY")
 					return true;
 				else
 					return false;
@@ -463,6 +472,7 @@ fhirControllers.controller('loginCtrl', ['$scope', '$http', '$window', 'Fhir', '
 
 
 // Call this controller for tab selection logic
+/*
 fhirControllers.controller('PanelController', ['$scope', '$http', '$window',
 	function($scope, $http, $window) {
 
@@ -486,5 +496,6 @@ fhirControllers.controller('PanelController', ['$scope', '$http', '$window',
 		};
 	}]);
 
+*/
 
 

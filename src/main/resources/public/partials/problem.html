@@ -1,77 +1,78 @@
 <!-- Problem tab -->
+<div class="row panel panel-primary">
+    <div class="panel-heading">Problem Information for <span class="strong"><mark>{{result.demographics.name}}</mark></span></div>
 
-<div ng-show="isProblemInfoEmpty()" class="row panel panel-warning">
+    <div ng-show="isProblemInfoEmpty()" class="panel panel-success">
 
-    <!-- Default panel contents -->
-    <div class="panel-heading">Problem Details</div>
+        <!-- Default panel contents -->
+        <div class="panel-heading">Problem Details</div>
 
-    <table class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Type</th>
-            <th>Code</th>
-            <th>Description</th>
-            <th>Date Recorded</th>
-            <th>Age at Onset</th>
-            <th>Severity</th>
-        </tr>
-        </thead>
+        <table class="table table-condensed table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Date Recorded</th>
+                <th>Age at Onset</th>
+                <th>Severity</th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr>
-            <td colspan="7" class="text-center text-danger">
-                No information present
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+            <tbody>
+            <tr>
+                <td colspan="7" class="text-center text-danger">
+                    No information present
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
 <!-- Viewing Problem details when information is available -->
+    <div ng-hide="isProblemInfoEmpty()" class="panel panel-success">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Problem Details</div>
 
-<div ng-hide="isProblemInfoEmpty()" class="row panel panel-warning">
+        <table class="table table-condensed table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Date Recorded</th>
+                <th>Age at Onset</th>
+                <th>Severity</th>
+            </tr>
+            </thead>
 
-    <!-- Default panel contents -->
-    <div class="panel-heading">Problem Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+            <tbody>
+            <tr ng-repeat="problem in result.problems">
+                <td>
+                    {{problem.type}}
+                </td>
 
-    <table class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Type</th>
-            <th>Code</th>
-            <th>Description</th>
-            <th>Date Recorded</th>
-            <th>Age at Onset</th>
-            <th>Severity</th>
-        </tr>
-        </thead>
+                <td>
+                    {{problem.code}}
+                </td>
 
-        <tbody>
-        <tr ng-repeat="problem in result.problems">
-            <td>
-                {{problem.type}}
-            </td>
+                <td>
+                    {{problem.description}}
+                </td>
 
-            <td>
-                {{problem.code}}
-            </td>
+                <td>
+                    {{problem.dateRecorded}}
+                </td>
 
-            <td>
-                {{problem.description}}
-            </td>
-
-            <td>
-                {{problem.dateRecorded}}
-            </td>
-
-            <td>
-                {{problem.ageAtOnset}}
-            </td>
-            <td>
-                {{problem.severity}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                <td>
+                    {{problem.ageAtOnset}}
+                </td>
+                <td>
+                    {{problem.severity}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

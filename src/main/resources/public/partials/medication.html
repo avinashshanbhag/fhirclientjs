@@ -1,6 +1,10 @@
-<!-- Medication Tab Selected -->
+<!-- Default panel contents -->
+<div class="row panel panel-primary">
+    <div class="panel-heading">Medication Information for <span class="strong"><mark>{{result.demographics.name}}</mark></span></div>
 
-<div ng-show="isMedOrderInfoEmpty()" class="row panel panel-success">
+
+<!-- Medication Tab Selected -->
+<div ng-show="isMedOrderInfoEmpty()" class="panel panel-primary">
 
     <!-- Default panel contents -->
     <div class="panel-heading">Medication Order Details</div>
@@ -26,13 +30,10 @@
     </table>
 </div>
 
-
 <!-- Viewing Medication Order when information is present -->
-
-<div ng-hide="isMedOrderInfoEmpty()" class="row panel panel-success">
-
+<div ng-hide="isMedOrderInfoEmpty()" class="panel panel-success">
     <!-- Default panel contents -->
-    <div class="panel-heading">Medication Order Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+    <div class="panel-heading">Medication Order Details</div>
 
     <table class="table table-condensed table-bordered table-striped">
         <thead>
@@ -65,7 +66,7 @@
 
 <!-- Viewing Medication Dispense Empty table when no information is present -->
 
-<div ng-show="isMedDispenseInfoEmpty()" class="row panel panel-success">
+<div ng-show="isMedDispenseInfoEmpty()" class="panel panel-success">
 
     <!-- Default panel contents -->
     <div class="panel-heading">Medication Dispense Details</div>
@@ -93,10 +94,10 @@
 
 <!-- Viewing Medication Dispense when information is present -->
 
-<div ng-hide="isMedDispenseInfoEmpty()" class="row panel panel-success">
+<div ng-hide="isMedDispenseInfoEmpty()" class="panel panel-success">
 
     <!-- Default panel contents -->
-    <div class="panel-heading">Medication Dispense Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+    <div class="panel-heading">Medication Dispense Details</div>
 
     <table class="table table-condensed table-bordered table-striped">
         <thead>
@@ -130,7 +131,7 @@
 
 <!-- Viewing Medication Statement Empty table when no information is present -->
 
-<div ng-show="isMedStatementInfoEmpty()" class="row panel panel-success">
+<div ng-show="isMedStatementInfoEmpty()" class="panel panel-success">
 
     <!-- Default panel contents -->
     <div class="panel-heading">Medication Statement Details</div>
@@ -160,10 +161,10 @@
 
 <!-- Viewing Medication Statement when information is present -->
 
-<div ng-hide="isMedStatementInfoEmpty()" class="row panel panel-success">
+<div ng-hide="isMedStatementInfoEmpty()" class="panel panel-success">
 
     <!-- Default panel contents -->
-    <div class="panel-heading">Medication Statement Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+    <div class="panel-heading">Medication Statement Details</div>
 
     <table class="table table-condensed table-bordered table-striped">
         <thead>
@@ -205,7 +206,7 @@
 
 <!-- Viewing Medicine details Empty table when no information is present -->
 
-<div ng-show="isMedicineInfoEmpty()" class="row panel panel-success">
+<div ng-show="isMedicineInfoEmpty()" class="panel panel-success">
 
     <!-- Default panel contents -->
     <div class="panel-heading">Medication Details</div>
@@ -237,10 +238,10 @@
 
 <!-- Viewing Medicine details tables when information is present -->
 
-<div ng-hide="isMedicineInfoEmpty()" class="row panel panel-success">
+<div ng-hide="isMedicineInfoEmpty()" class="panel panel-success">
 
     <!-- Default panel contents -->
-    <div class="panel-heading">Medication Details for <span class="label label-info">{{result.demographics.name}}</span></div>
+    <div class="panel-heading">Medication Details</div>
 
     <table class="table table-condensed table-bordered table-striped">
         <thead>
@@ -285,4 +286,5 @@
         </tr>
         </tbody>
     </table>
+</div>
 </div>
