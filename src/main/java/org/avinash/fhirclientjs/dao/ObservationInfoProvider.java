@@ -190,29 +190,45 @@ public class ObservationInfoProvider extends BaseProvider {
 									 
 					type = ObservationType.QUANTITY;
 				}
-	
+				else
+				{
+					System.out.println("Following Value type not currently handled: " + 
+										obsRes.getValue().getClass());
+					
+					type = ObservationType.UNKNOWN;
+					
+				}
+				
+				// Make sure only valid observations are put in the UI
+				if (type != null)
+				{
+					// Now create the object and add it.
+					obsInfo = new ObservationInfo();
+					
+					obsInfo.setType(type);
+					
+					obsInfo.setCategoryCodeSystem(categoryCodeSystem);
+					obsInfo.setCategoryCodeValue(categoryCodeValue);
+					obsInfo.setCategoryDisplayValue(categoryDisplayValue);
+					
+					obsInfo.setObsCodeSystem(obsCodeSystem);
+					obsInfo.setObsCodeValue(obsCodeValue);
+					obsInfo.setObsCodeDisplayValue(obsCodeDisplayValue);
+					
+					obsInfo.setValCodeSystem(valCodeSystem);
+					obsInfo.setValCodeValue(valCodeValue);
+					obsInfo.setValCodeDisplayValue(valCodeDisplayValue);
+					
+					obsInfo.setValue(value);
+					obsInfo.setUnit(unit);
+					obsInfo.setUnitCodeSystem(unitCodeSystem);
+				}
+			}
+			else
+			{
+				System.out.println("No Value provided for foll. observation: " + obsCodeDisplayValue);
 			}
 			
-			// Now create the object and add it.
-			obsInfo = new ObservationInfo();
-			
-			obsInfo.setType(type);
-			
-			obsInfo.setCategoryCodeSystem(categoryCodeSystem);
-			obsInfo.setCategoryCodeValue(categoryCodeValue);
-			obsInfo.setCategoryCodeValue(categoryCodeValue);
-			
-			obsInfo.setObsCodeSystem(obsCodeSystem);
-			obsInfo.setObsCodeValue(obsCodeValue);
-			obsInfo.setObsCodeDisplayValue(obsCodeDisplayValue);
-			
-			obsInfo.setValCodeSystem(valCodeSystem);
-			obsInfo.setValCodeValue(valCodeValue);
-			obsInfo.setValCodeDisplayValue(valCodeDisplayValue);
-			
-			obsInfo.setValue(value);
-			obsInfo.setUnit(unit);
-			obsInfo.setUnitCodeSystem(unitCodeSystem);
 			
 		}
 		return (obsInfo);

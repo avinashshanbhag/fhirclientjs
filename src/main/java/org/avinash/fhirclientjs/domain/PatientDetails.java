@@ -54,7 +54,7 @@ public class PatientDetails implements Serializable {
 		this.medDispenseDetails = new ArrayList<MedicationDispenseDetails>();
 		this.medStatementDetails = new ArrayList<MedicationStatementDetails>();
 		
-		
+		this.demographics = null;
 	}
 
 	

@@ -18,7 +18,8 @@ public class ObservationInfo implements Serializable {
 	public  enum ObservationType 
 	{
 		QUANTITY,
-		CODEABLECONCEPT
+		CODEABLECONCEPT,
+		UNKNOWN
 	}
 	
 	private ObservationType type; 

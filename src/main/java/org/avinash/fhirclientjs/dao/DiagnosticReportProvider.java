@@ -8,10 +8,12 @@ import java.util.List;
 
 import org.apache.commons.lang3.Validate;
 import org.avinash.fhirclientjs.domain.DiagnosticReportInfo;
+import org.avinash.fhirclientjs.domain.MedicationStatementDetails;
 import org.avinash.fhirclientjs.domain.ObservationInfo;
 import org.avinash.fhirclientjs.util.FhirUtils;
 
 import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.model.dstu2.composite.ResourceReferenceDt;
 import ca.uhn.fhir.model.dstu2.resource.DiagnosticReport;
 import ca.uhn.fhir.model.dstu2.resource.Observation;
 import ca.uhn.fhir.rest.client.IGenericClient;
@@ -149,7 +151,11 @@ public class DiagnosticReportProvider extends BaseProvider {
 					}
 									
 				}
-						
+				
+				// Get all observations
+				List<ObservationInfo> obsInfoLs = getObservations(singleDiagnosticReport);
+				
+/*				
 				String result = null;
 				ObservationInfo obsInfo = null;
 				
@@ -179,6 +185,7 @@ public class DiagnosticReportProvider extends BaseProvider {
 						}
 					}
 				}
+*/
 				
 				// Now create new object to populate the data
 				DiagnosticReportInfo diagReportInfo = new DiagnosticReportInfo();
@@ -187,9 +194,9 @@ public class DiagnosticReportProvider extends BaseProvider {
 				diagReportInfo.setDisplay(display);
 				diagReportInfo.setStatus(status);
 				diagReportInfo.setPerformer(performer);
-				diagReportInfo.setResult(result);
 				diagReportInfo.setIssued(issued);
-				diagReportInfo.setObservation(obsInfo);
+				diagReportInfo.setObservationlist(obsInfoLs);
+				
 				
 				//Add to the list
 				diagReportInfoLs.add(diagReportInfo);				
@@ -197,6 +204,61 @@ public class DiagnosticReportProvider extends BaseProvider {
 		}
 		
 		return (diagReportInfoLs);
+	}
+	
+	/**
+	 * This method iterates the <i>DiagnosticReport.result</i> field for observations and 
+	 * then returns <i>List</i> of <i>ObservationInfo</i> objects.
+	 * 
+	 * @param theDiagnosticReport <i>DiagnosticReport</i> FHIR resource
+	 * @return	<i>List</i> of <i>ObservationInfo</i> objects
+	 */
+	
+	private List<ObservationInfo> getObservations(DiagnosticReport theDiagnosticReport)
+	{
+		if (theDiagnosticReport == null || theDiagnosticReport.getResult() == null)
+			return null;
+		
+		List<ObservationInfo> obsInfoLs = new ArrayList<ObservationInfo>();
+		
+		List<ResourceReferenceDt> obsRefLs = theDiagnosticReport.getResult();
+		
+		for (int i=0; i < obsRefLs.size(); i++)
+		{
+			ResourceReferenceDt singleObsRef = obsRefLs.get(i);
+			
+			if (singleObsRef != null && singleObsRef.getReference() != null)
+			{
+				String refVal = singleObsRef.getReference().getValue();
+
+				// Now get the observation Data here.
+				if (refVal != null && refVal.length() > 0)
+				{
+					String fullUrl = FhirUtils.buildFullFhirURL(refVal, this.getTheFhirURL());
+					
+					System.out.println("Full result URL: " + fullUrl);
+					
+					if (fullUrl != null)
+					{
+						ObservationInfoProvider obsInfoProv = new ObservationInfoProvider(this.getTheCtx(),
+																							this.getTheFhirURL(), 
+																							this.getTheAccessToken(), 
+																							fullUrl);
+						if (obsInfoProv != null)
+						{
+							// Get the Observation FHIR Resource
+							ObservationInfo obsInfo = obsInfoProv.buildObservationInfo();
+							
+							// Add to the list
+							if (obsInfo != null)
+								obsInfoLs.add(obsInfo);
+						}
+					}
+				}
+			}
+		}
+		
+		return (obsInfoLs);
 	}
 	
 	

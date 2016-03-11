@@ -4,6 +4,8 @@
 package org.avinash.fhirclientjs.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ashanbhag
@@ -18,12 +20,15 @@ public class DiagnosticReportInfo implements Serializable {
 	private String category;
 	private String code;
 	private String performer;
-	private String result;
 	private String presentedForm;
 	
 	private String issued; // when (date)
 	
-	private ObservationInfo observation;
+	//private ObservationInfo observation;
+	
+	private List<ObservationInfo> observationlist;
+	
+	
 	
 	
 	/**
@@ -36,9 +41,11 @@ public class DiagnosticReportInfo implements Serializable {
 		this.category = null;
 		this.code = null;
 		this.performer = null;
-		this.result = null;
 		this.presentedForm = null;
 		this.issued = null;
+		
+		this.observationlist = new ArrayList<ObservationInfo>();
+		
 	}
 	
 	/**
@@ -106,20 +113,6 @@ public class DiagnosticReportInfo implements Serializable {
 	}
 
 
-	/**
-	 * @return the result
-	 */
-	public String getResult() {
-		return result;
-	}
-
-
-	/**
-	 * @param result the result to set
-	 */
-	public void setResult(String result) {
-		this.result = result;
-	}
 
 
 	/**
@@ -166,17 +159,22 @@ public class DiagnosticReportInfo implements Serializable {
 	}
 
 	/**
-	 * @return the observation
+	 * @return the observationlist
 	 */
-	public ObservationInfo getObservation() {
-		return observation;
+	public List<ObservationInfo> getObservationlist() {
+		return observationlist;
 	}
 
 	/**
-	 * @param observation the observation to set
+	 * @param observationlist the observationlist to set
 	 */
-	public void setObservation(ObservationInfo observation) {
-		this.observation = observation;
+	public void setObservationlist(List<ObservationInfo> observationlist) {
+		this.observationlist = observationlist;
+	}
+	
+	public void addObservation(ObservationInfo observationInfo)
+	{
+		this.observationlist.add(observationInfo);
 	}
 
 	/* (non-Javadoc)
@@ -186,9 +184,9 @@ public class DiagnosticReportInfo implements Serializable {
 	public String toString() {
 		return "DiagnosticReportInfo [display=" + display + ", status="
 				+ status + ", category=" + category + ", code=" + code
-				+ ", performer=" + performer + ", result=" + result
+				+ ", performer=" + performer 
 				+ ", presentedForm=" + presentedForm + ", issued=" + issued
-				+ ", observation=" + observation + "]";
+				+ ", observationlist=" + observationlist + "]";
 	}
 
 
